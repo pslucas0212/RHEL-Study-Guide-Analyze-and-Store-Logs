@@ -87,4 +87,26 @@ Mar 22 15:47:55 serverb.lab.example.com systemd[1]: Starting User Runtime Direct
 ...
 ```
 
+Configure the rsyslog service to write the authpriv.alert messages to the /var/log/auth-errors file.
+```
+# vi /etc/rsyslog.d/auth-errors.conf
+authpriv.alert /var/log/auth-errors
+```
+
+Restart rsyslog service
+```
+# systemctl restart rsyslog
+```
+Test the update
+```
+# logger -p authpriv.alert "Logging test authpriv.alert"
+# tail /var/log/auth-errors 
+Mar 22 16:23:16 serverb root[5251]: Logging test authpriv.alert
+```
+
+We are finished.
+
+
+```
+
 
